@@ -8,7 +8,7 @@
 		<version>2.5.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>it.pagopa.interop</groupId>
+	<groupId>it.pagopa.interop.signalhub.signals.persister</groupId>
 	<artifactId>signalhub-signal-persister</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>signalhub signals persister</name>
