@@ -1,8 +1,7 @@
-package it.pagopa.interop.signalhub.signals.persister.config;
+package it.pagopa.interop.signalhub.persister.config;
 
 import io.awspring.cloud.sqs.config.SqsBootstrapConfiguration;
 import io.awspring.cloud.sqs.config.SqsMessageListenerContainerFactory;
-import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
@@ -22,23 +21,14 @@ import java.net.URI;
 public class AwsBeanBuilder {
 
     private final AwsPropertiesConfig props;
-    private final SignalHubPersisterConfig signalHubPersisterConfig;
 
-    public AwsBeanBuilder(AwsPropertiesConfig props, SignalHubPersisterConfig signalHubPersisterConfig) {
+    public AwsBeanBuilder(AwsPropertiesConfig props) {
         this.props = props;
-        this.signalHubPersisterConfig = signalHubPersisterConfig;
     }
 
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
         return configureBuilder(SqsAsyncClient.builder(), props.getEndpointUrlSqs());
-    }
-
-    @Bean
-    public SqsTemplate sqsTemplate() {
-        return SqsTemplate.builder().sqsAsyncClient(sqsAsyncClient())
-                .configure(options -> options.defaultQueue(signalHubPersisterConfig.getInternalQueueName()))
-                .build();
     }
 
     @Bean

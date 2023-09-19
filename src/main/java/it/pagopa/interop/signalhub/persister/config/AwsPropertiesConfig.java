@@ -1,4 +1,4 @@
-package it.pagopa.interop.signalhub.signals.persister.config;
+package it.pagopa.interop.signalhub.persister.config;
 
 import lombok.Getter;
 import lombok.Setter;
