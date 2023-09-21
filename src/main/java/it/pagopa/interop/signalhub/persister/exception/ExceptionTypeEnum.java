@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum ExceptionTypeEnum{
-    MAPPER_ERROR("MAPPER_ERROR", "The requested object could not be mapped");
+    MAPPER_ERROR("MAPPER_ERROR", "The requested object could not be mapped."),
+    DUPLICATE_SIGNAL_ERROR("DUPLICATE_SIGNAL_ERROR", "The signal is already saved on database.");
 
     private final String title;
     private final String message;
