@@ -2,6 +2,7 @@ package it.pagopa.interop.signalhub.persister.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -12,6 +13,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Table
+@ToString
 public class Signal {
     @Id
     @Column("id")
