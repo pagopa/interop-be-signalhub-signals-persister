@@ -13,5 +13,5 @@ import org.springframework.context.annotation.Configuration;
 public class SignalHubPersisterConfig {
 
     private String internalQueueName;
-
+    private String internalQueueNameDlq;
 }
