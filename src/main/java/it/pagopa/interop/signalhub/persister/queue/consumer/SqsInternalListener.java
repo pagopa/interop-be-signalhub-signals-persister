@@ -31,7 +31,7 @@ public class SqsInternalListener {
     @Autowired
     private SignalMapper signalMapper;
 
-    @SqsListener(value = "${aws.internal-queue-name}")
+    @SqsListener(value = "${poc.signal-hub.internal-queue-name}")
     public CompletableFuture<Void> pullFromAwsInternalQueue(@Payload String node, @Headers Map<String, Object> headers) {
         log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers);
         SignalEvent signalEvent = convertToObject(node, SignalEvent.class);
