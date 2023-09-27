@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -34,21 +35,12 @@ public class SqsInternalListener {
     @SqsListener(value = "${poc.signal-hub.internal-queue-name}")
     public CompletableFuture<Void> pullFromAwsInternalQueue(@Payload String node, @Headers Map<String, Object> headers) {
         log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers);
-        SignalEvent signalEvent = convertToObject(node, SignalEvent.class);
-        Signal signal = signalMapper.signalEventToSignal(signalEvent);
 
-        return signalService
-                .pushIntoAwsDbMaster(signal)
+        return Mono.just(node)
+                .map(json -> Utility.jsonToObject(objectMapper, node, SignalEvent.class))
+                .map(signalMapper::signalEventToSignal)
+                .flatMap(signalService::pushIntoAwsDbMaster)
                 .then()
                 .toFuture();
-    }
-
-    private <T> T convertToObject(String body, Class<T> tClass){
-        T entity = Utility.jsonToObject(this.objectMapper, body, tClass);
-        if (entity == null) {
-            log.error("errorReason = {}, An error occurred during object conversion", MAPPER_ERROR.getMessage());
-            throw new PdndGenericException(MAPPER_ERROR, MAPPER_ERROR.getMessage());
-        }
-        return entity;
     }
 }
