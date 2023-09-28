@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import it.pagopa.interop.signalhub.persister.exception.PdndGenericException;
 import lombok.extern.slf4j.Slf4j;
+import static it.pagopa.interop.signalhub.persister.exception.ExceptionTypeEnum.MAPPER_ERROR;
 
 import static it.pagopa.interop.signalhub.persister.exception.ExceptionTypeEnum.MAPPER_ERROR;
 
@@ -18,8 +19,9 @@ public class Utility {
         throw new IllegalCallerException();
     }
 
-    public static <T> T jsonToObject(ObjectMapper objectMapper, String json, Class<T> tClass){
+    public static <T> T jsonToObject(String json, Class<T> tClass){
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(json, tClass);
         } catch (JsonProcessingException exception) {
             log.error("exception = {}, errorReason = {}, Error during mapping an object", exception, exception.getMessage());

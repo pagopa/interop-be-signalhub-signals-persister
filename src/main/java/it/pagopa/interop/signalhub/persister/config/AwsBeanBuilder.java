@@ -2,7 +2,6 @@ package it.pagopa.interop.signalhub.persister.config;
 
 import io.awspring.cloud.sqs.config.SqsBootstrapConfiguration;
 import io.awspring.cloud.sqs.config.SqsMessageListenerContainerFactory;
-import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
@@ -13,14 +12,13 @@ import software.amazon.awssdk.auth.credentials.WebIdentityTokenFileCredentialsPr
 import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
-
 import java.net.URI;
+
 
 @Import(SqsBootstrapConfiguration.class)
 @Configuration
 @Slf4j
 public class AwsBeanBuilder {
-
     private final AwsPropertiesConfig props;
     private final SignalHubPersisterConfig cfn;
 
@@ -32,13 +30,6 @@ public class AwsBeanBuilder {
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
         return configureBuilder(SqsAsyncClient.builder(), props.getEndpointUrlSqs());
-    }
-
-    @Bean
-    public SqsTemplate sqsTemplate(SqsAsyncClient sqsAsyncClient) {
-        return SqsTemplate.builder().sqsAsyncClient(sqsAsyncClient)
-                .configure(options -> options.defaultQueue(cfn.getInternalQueueNameDlq()))
-                .build();
     }
 
     @Bean
@@ -77,5 +68,4 @@ public class AwsBeanBuilder {
 
         return builder.build();
     }
-
 }

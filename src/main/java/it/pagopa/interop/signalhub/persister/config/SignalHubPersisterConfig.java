@@ -11,7 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "poc.signal-hub")
 public class SignalHubPersisterConfig {
-
     private String internalQueueName;
-    private String internalQueueNameDlq;
 }
