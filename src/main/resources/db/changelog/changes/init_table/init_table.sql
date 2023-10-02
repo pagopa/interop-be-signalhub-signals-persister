@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS ORGANIZATION_ESERVICE (
     eservice_id     VARCHAR (50) UNIQUE NOT NULL,
-    organization_id VARCHAR (50) NOT NULL,
+    producer_id VARCHAR (50) NOT NULL,
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP    NOT NULL,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, organization_id)
+    UNIQUE (eservice_id, producer_id)
 );
 
 
