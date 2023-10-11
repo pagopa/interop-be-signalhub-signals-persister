@@ -17,6 +17,8 @@ public class DeadSignal {
     @Id
     @Column("id")
     private Long id;
+    @Column("correlation_id")
+    private String correlationId;
     @Column("signal_id")
     private Long signalId;
     @Column("object_id")
@@ -30,6 +32,6 @@ public class DeadSignal {
     @CreatedDate
     @Column("tmst_insert")
     private Instant tmstInsert;
-    @Column("error")
-    private String error;
+    @Column("error_reason")
+    private String errorReason;
 }

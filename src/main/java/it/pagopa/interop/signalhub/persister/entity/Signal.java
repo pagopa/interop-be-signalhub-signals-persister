@@ -18,6 +18,8 @@ public class Signal {
     @Id
     @Column("id")
     private Long id;
+    @Column("correlation_id")
+    private String correlationId;
     @Column("signal_id")
     private Long signalId;
     @Column("object_id")

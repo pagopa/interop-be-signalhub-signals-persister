@@ -29,10 +29,11 @@ public class SqsInternalListener {
     @SqsListener(value = "${poc.signal-hub.internal-queue-name}")
     public CompletableFuture<Void> pullFromAwsInternalQueue(@Payload String node, @Headers Map<String, Object> headers) {
         log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers);
+        String correlationId = (String) headers.get(SignalMapper.CORRELATION_ID_HEADER_KEY);
 
         return Mono.just(node)
                 .map(json -> Utility.jsonToObject(node, SignalEvent.class))
-                .map(signalMapper::signalEventToSignal)
+                .map((signalEvent) -> signalMapper.signalEventToSignal(signalEvent, correlationId))
                 .flatMap(signalService::signalServiceFlow)
                 .then()
                 .toFuture();

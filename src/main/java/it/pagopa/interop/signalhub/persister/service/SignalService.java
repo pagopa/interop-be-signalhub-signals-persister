@@ -40,7 +40,7 @@ public class SignalService {
 
     private Mono<DeadSignal> getDeadSignal(Signal signal) {
         DeadSignal deadSignal = deadSignalMapper.signalToDeadSignal(signal);
-        deadSignal.setError(DUPLICATE_SIGNAL_ERROR.toString());
+        deadSignal.setErrorReason(DUPLICATE_SIGNAL_ERROR.toString());
         return Mono.just(deadSignal);
     }
 
