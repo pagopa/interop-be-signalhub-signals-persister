@@ -8,8 +8,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SignalMapper {
+    String CORRELATION_ID_HEADER_KEY = "correlationId";
+
     @Mapping(target = "indexSignal", source = "signal.signalId")
     SignalEvent signalToSignalEvent(Signal signal);
     @Mapping(target = "signalId", source = "signalEvent.indexSignal")
-    Signal signalEventToSignal(SignalEvent signalEvent);
+    @Mapping(target = "correlationId", source = "correlationId")
+    Signal signalEventToSignal(SignalEvent signalEvent, String correlationId);
 }
