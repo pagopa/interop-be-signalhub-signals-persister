@@ -1,10 +1,12 @@
 CREATE TABLE IF NOT EXISTS ESERVICE (
     eservice_id     VARCHAR (50) UNIQUE NOT NULL,
     producer_id     VARCHAR (50) NOT NULL,
+    event_id        BIGINT       NOT NULL,
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP    NOT NULL,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, producer_id)
+    UNIQUE (eservice_id, producer_id),
+    PRIMARY KEY (eservice_id, producer_id)
 );
 CREATE INDEX ESERVICE_INDEX_ID ON ESERVICE USING hash (eservice_id);
 CREATE INDEX ESERVICE_INDEX_PRODUCER_ID ON ESERVICE USING hash (producer_id);
@@ -13,10 +15,12 @@ CREATE INDEX ESERVICE_INDEX_PRODUCER_ID ON ESERVICE USING hash (producer_id);
 CREATE TABLE IF NOT EXISTS CONSUMER_ESERVICE (
     eservice_id     VARCHAR (50) NOT NULL,
     consumer_id     VARCHAR (50) NOT NULL,
+    event_id        BIGINT       NOT NULL,
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP    NOT NULL,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, consumer_id)
+    UNIQUE (eservice_id, consumer_id),
+    PRIMARY KEY (eservice_id, consumer_id)
 );
 CREATE INDEX CONSUMER_ESERVICE_INDEX_ID ON CONSUMER_ESERVICE USING hash (eservice_id);
 CREATE INDEX ESERVICE_INDEX_CONSUMER_ID ON CONSUMER_ESERVICE USING hash (consumer_id);
@@ -53,7 +57,21 @@ CREATE TABLE IF NOT EXISTS DEAD_SIGNAL (
 CREATE TABLE IF NOT EXISTS TRACING_BATCH (
      batch_id         SERIAL PRIMARY KEY,
      state            VARCHAR (50) NOT NULL,
-     last_event_id      BIGINT,
+     last_event_id    BIGINT,
+     event_type       VARCHAR (50)  NOT NULL,
      tmst_started     TIMESTAMP NOT NULL,
      tmst_ended       TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS EVENT_TEMP (
+    event_temp_id    SERIAL PRIMARY KEY,
+    event_id         BIGINT       UNIQUE NOT NULL,
+    event_type       VARCHAR (50) NOT NULL,
+    object_type      VARCHAR (50) NOT NULL,
+    object_id        VARCHAR (50) NOT NULL,
+    state            VARCHAR (50) NOT NULL,
+    state_processing VARCHAR (50) NOT NULL,
+    tmst_insert      TIMESTAMP    NOT NULL,
+    tmst_processing  TIMESTAMP
 );
