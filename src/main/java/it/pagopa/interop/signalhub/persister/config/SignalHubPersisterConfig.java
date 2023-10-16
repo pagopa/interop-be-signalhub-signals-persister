@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "poc.signal-hub")
+@ConfigurationProperties(prefix = "pdnd.signal-hub")
 public class SignalHubPersisterConfig {
-    private String internalQueueName;
 }

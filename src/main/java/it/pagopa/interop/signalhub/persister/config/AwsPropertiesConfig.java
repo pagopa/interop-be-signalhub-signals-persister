@@ -12,6 +12,5 @@ import org.springframework.context.annotation.Configuration;
 public class AwsPropertiesConfig {
     private String profile;
     private String region;
-    private String endpointUrl;
-    private String endpointUrlSqs;
+    private String sqsEndpoint;
 }

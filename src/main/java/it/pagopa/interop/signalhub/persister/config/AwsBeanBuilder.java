@@ -20,16 +20,14 @@ import java.net.URI;
 @Slf4j
 public class AwsBeanBuilder {
     private final AwsPropertiesConfig props;
-    private final SignalHubPersisterConfig cfn;
 
-    public AwsBeanBuilder(AwsPropertiesConfig props, SignalHubPersisterConfig cfn) {
+    public AwsBeanBuilder(AwsPropertiesConfig props) {
         this.props = props;
-        this.cfn = cfn;
     }
 
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
-        return configureBuilder(SqsAsyncClient.builder(), props.getEndpointUrlSqs());
+        return configureBuilder(SqsAsyncClient.builder(), props.getSqsEndpoint());
     }
 
     @Bean

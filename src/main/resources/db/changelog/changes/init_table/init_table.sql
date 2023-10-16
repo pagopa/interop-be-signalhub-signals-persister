@@ -62,16 +62,3 @@ CREATE TABLE IF NOT EXISTS TRACING_BATCH (
      tmst_started     TIMESTAMP NOT NULL,
      tmst_ended       TIMESTAMP
 );
-
-
-CREATE TABLE IF NOT EXISTS EVENT_TEMP (
-    event_temp_id    SERIAL PRIMARY KEY,
-    event_id         BIGINT       UNIQUE NOT NULL,
-    event_type       VARCHAR (50) NOT NULL,
-    object_type      VARCHAR (50) NOT NULL,
-    object_id        VARCHAR (50) NOT NULL,
-    state            VARCHAR (50) NOT NULL,
-    state_processing VARCHAR (50) NOT NULL,
-    tmst_insert      TIMESTAMP    NOT NULL,
-    tmst_processing  TIMESTAMP
-);
