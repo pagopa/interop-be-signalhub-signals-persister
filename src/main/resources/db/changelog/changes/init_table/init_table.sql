@@ -58,7 +58,17 @@ CREATE TABLE IF NOT EXISTS TRACING_BATCH (
      batch_id         SERIAL PRIMARY KEY,
      state            VARCHAR (50) NOT NULL,
      last_event_id    BIGINT,
-     event_type       VARCHAR (50)  NOT NULL,
      tmst_started     TIMESTAMP NOT NULL,
      tmst_ended       TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS DEAD_EVENT (
+    event_tmp_id        SERIAL PRIMARY KEY,
+    tmst_insert         TIMESTAMP,
+    error_reason        VARCHAR(255) NOT NULL,
+    event_id            BIGINT NOT NULL,
+    event_type          VARCHAR (50) NOT NULL,
+    object_type         VARCHAR (50) NOT NULL,
+    eservice_id         VARCHAR (50),
+    agreement_id        VARCHAR (50)
 );
