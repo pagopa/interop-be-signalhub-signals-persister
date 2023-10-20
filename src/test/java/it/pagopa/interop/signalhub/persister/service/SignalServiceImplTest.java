@@ -8,6 +8,7 @@ import it.pagopa.interop.signalhub.persister.repository.DeadSignalRepository;
 import it.pagopa.interop.signalhub.persister.repository.SignalRepository;
 import it.pagopa.interop.signalhub.persister.service.impl.SignalServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -17,9 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-
 import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -34,14 +33,19 @@ class SignalServiceImplTest {
     @Mock
     private DeadSignalMapper deadSignalMapper;
 
-    private final Long id = 0L;
-    private final Long signalId = 100L;
-    private final String objectId = "OBJ1";
-    private final String correlationId = "0A";
-    private final String eserviceId = "OBJ1";
-    private final String objectType = "0E";
-    private final String signalType = SignalType.CREATE.toString();
+    private Long id;
+    private Long signalId;
+    private String objectId;
+    private String correlationId;
+    private String eserviceId;
+    private String objectType;
+    private String signalType;
 
+
+    @BeforeEach
+    void preTest(){
+        this.setUp();
+    }
 
     @Test
     void signalServiceFlowTest() {
@@ -183,5 +187,15 @@ class SignalServiceImplTest {
         signal.setEserviceId(this.eserviceId);
         signal.setObjectId(this.objectId);
         return signal;
+    }
+
+    private void setUp() {
+        this.id = 0L;
+        this.signalId = 100L;
+        this.objectId = "OBJ1";
+        this.correlationId = "0A";
+        this.eserviceId = "OBJ1";
+        this.objectType = "0E";
+        this.signalType = SignalType.CREATE.toString();
     }
 }

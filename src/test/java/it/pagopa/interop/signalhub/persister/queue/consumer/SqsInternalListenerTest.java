@@ -33,16 +33,17 @@ class SqsInternalListenerTest {
     @Mock
     private SignalMapper signalMapper;
     private MockedStatic<Utility> utility;
-    private final String objectId = "OBJ1";
-    private final String correlationId = "0A";
-    private final String eserviceId = "OBJ1";
-    private final String objectType = "0E";
-    private final Long indexSignal = 0L;
+    private String objectId;
+    private String correlationId;
+    private String eserviceId;
+    private String objectType;
+    private Long indexSignal;
 
 
     @BeforeEach
     void preTest() {
         utility = Mockito.mockStatic(Utility.class);
+        this.setUp();
     }
 
     @AfterEach
@@ -161,5 +162,13 @@ class SqsInternalListenerTest {
         signalEvent.setObjectId(this.objectId);
         signalEvent.setIndexSignal(this.indexSignal);
         return signalEvent;
+    }
+
+    private void setUp() {
+        this.objectId = "OBJ1";
+        this.correlationId = "0A";
+        this.eserviceId = "OBJ1";
+        this.objectType = "0E";
+        this.indexSignal = 0L;
     }
 }

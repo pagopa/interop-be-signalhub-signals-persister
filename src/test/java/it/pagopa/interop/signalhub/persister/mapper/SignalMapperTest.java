@@ -3,6 +3,7 @@ package it.pagopa.interop.signalhub.persister.mapper;
 import it.pagopa.interop.signalhub.persister.entity.Signal;
 import it.pagopa.interop.signalhub.persister.queue.model.SignalEvent;
 import it.pagopa.interop.signalhub.persister.queue.model.SignalType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,14 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SignalMapperTest {
     private final SignalMapper signalMapper = Mappers.getMapper(SignalMapper.class);
-    private final Long signalId = 0L;
-    private final String objectId = "OBJ1";
-    private final String correlationId = "0A";
-    private final String eserviceId = "OBJ1";
-    private final String objectType = "0E";
-    private final Long indexSignal = 0L;
-    private final String signalType = SignalType.CREATE.toString();
+    private Long signalId;
+    private String objectId;
+    private String correlationId;
+    private String eserviceId;
+    private String objectType;
+    private Long indexSignal;
+    private String signalType;
 
+
+    @BeforeEach
+    void preTest() {
+        this.setUp();
+    }
 
     @Test
     void signalToSignalEventTest() {
@@ -104,5 +110,15 @@ class SignalMapperTest {
         signalEvent.setObjectId(this.objectId);
         signalEvent.setIndexSignal(this.indexSignal);
         return signalEvent;
+    }
+
+    private void setUp() {
+        this.signalId = 0L;
+        this.objectId = "OBJ1";
+        this.correlationId = "0A";
+        this.objectType = "0E";
+        this.eserviceId = "OBJ1";
+        this.indexSignal = 0L;
+        this.signalType = SignalType.CREATE.toString();
     }
 }
