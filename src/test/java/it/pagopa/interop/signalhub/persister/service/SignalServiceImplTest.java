@@ -6,6 +6,7 @@ import it.pagopa.interop.signalhub.persister.mapper.DeadSignalMapper;
 import it.pagopa.interop.signalhub.persister.queue.model.SignalType;
 import it.pagopa.interop.signalhub.persister.repository.DeadSignalRepository;
 import it.pagopa.interop.signalhub.persister.repository.SignalRepository;
+import it.pagopa.interop.signalhub.persister.service.impl.SignalServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,9 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @ExtendWith(MockitoExtension.class)
-class SignalServiceTest {
+class SignalServiceImplTest {
     @InjectMocks
-    SignalService signalService;
+    SignalServiceImpl signalServiceImpl;
     @Mock
     private SignalRepository signalRepository;
     @Mock
@@ -56,7 +57,7 @@ class SignalServiceTest {
                 .thenReturn(Mono.just(signalToSave));
 
 
-        signalService.signalServiceFlow(signalToSave)
+        signalServiceImpl.signalServiceFlow(signalToSave)
                 .flatMap(sig -> {
                             Assertions.assertNotNull(sig);
                             Assertions.assertEquals(signalToSave, sig);
@@ -107,7 +108,7 @@ class SignalServiceTest {
                 .when(deadSignalRepository.save(deadSignal))
                 .thenReturn(Mono.empty());
 
-        signalService.signalServiceFlow(signalToUpdate)
+        signalServiceImpl.signalServiceFlow(signalToUpdate)
                 .flatMap(sig -> {
                             Assertions.assertNotNull(sig);
                             Assertions.assertEquals(signalToUpdate, sig);
