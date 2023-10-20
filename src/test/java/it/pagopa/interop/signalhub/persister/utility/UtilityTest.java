@@ -23,6 +23,7 @@ class UtilityTest {
                     "indexSignal": "000001"
                 }
                 """;
+        
         SignalEvent signalEvent = Utility.jsonToObject(jsonNode, SignalEvent.class);
         assertNotNull(signalEvent);
         assertEquals(SignalType.CREATE, signalEvent.getSignalType());
