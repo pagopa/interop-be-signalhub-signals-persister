@@ -4,12 +4,12 @@ import lombok.Getter;
 
 
 @Getter
-public class PdndGenericException extends RuntimeException {
+public class PDNDGenericException extends RuntimeException {
     private final ExceptionTypeEnum exceptionType;
     private final String message;
 
 
-    public PdndGenericException(ExceptionTypeEnum exceptionType, String message){
+    public PDNDGenericException(ExceptionTypeEnum exceptionType, String message){
         super(message);
         this.exceptionType = exceptionType;
         this.message = message;

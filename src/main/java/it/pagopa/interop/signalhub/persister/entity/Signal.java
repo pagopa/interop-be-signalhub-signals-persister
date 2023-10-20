@@ -1,5 +1,6 @@
 package it.pagopa.interop.signalhub.persister.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import java.time.Instant;
 @Setter
 @Table
 @ToString
+@EqualsAndHashCode
 public class Signal {
     @Id
     @Column("id")

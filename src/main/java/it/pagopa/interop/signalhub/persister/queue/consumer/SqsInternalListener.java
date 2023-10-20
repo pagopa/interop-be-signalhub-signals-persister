@@ -6,23 +6,21 @@ import it.pagopa.interop.signalhub.persister.mapper.SignalMapper;
 import it.pagopa.interop.signalhub.persister.queue.model.SignalEvent;
 import it.pagopa.interop.signalhub.persister.service.SignalService;
 import it.pagopa.interop.signalhub.persister.utils.Utility;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 
 @Slf4j
 @Component
+@AllArgsConstructor
 public class SqsInternalListener {
-    @Autowired
     private SignalService signalService;
-    @Autowired
     private SignalMapper signalMapper;
 
 
