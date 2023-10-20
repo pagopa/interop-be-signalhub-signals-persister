@@ -20,8 +20,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +47,7 @@ class SignalServiceImplTest {
     void signalServiceFlowTest() {
         Signal signalToSave = getSignal();
         signalToSave.setId(null);
+
         Mockito
                 .when(signalRepository.findByIndexSignalAndEserviceId(signalToSave.getSignalId(), signalToSave.getEserviceId()))
                 .thenReturn(Mono.empty());
@@ -149,6 +149,29 @@ class SignalServiceImplTest {
         assertEquals(deadSignal,
                 Objects.requireNonNull(deadSignalArgumentCaptor.getValue()));
     }
+
+    @Test
+    void signalServiceFlowExceptionSaveTest() {
+        Signal signalToSave = getSignal();
+        signalToSave.setId(null);
+
+        Mockito
+                .when(signalRepository.findByIndexSignalAndEserviceId(signalToSave.getSignalId(), signalToSave.getEserviceId()))
+                .thenReturn(Mono.just(signalToSave));
+
+        Mockito
+                .when(signalRepository.save(signalToSave))
+                .thenThrow(new IllegalArgumentException());
+
+        signalServiceImpl.signalServiceFlow(signalToSave)
+                .onErrorResume(exception -> {
+                    Assertions.assertNotNull(exception);
+                    assertEquals(IllegalArgumentException.class, exception.getClass());
+                    return Mono.empty();
+                })
+                .block();
+    }
+
 
     private Signal getSignal() {
         Signal signal = new Signal();
