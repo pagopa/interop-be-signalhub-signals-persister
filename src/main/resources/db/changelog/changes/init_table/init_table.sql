@@ -1,30 +1,35 @@
 CREATE TABLE IF NOT EXISTS ESERVICE (
     eservice_id     VARCHAR (50) UNIQUE NOT NULL,
     producer_id     VARCHAR (50) NOT NULL,
+    descriptor_id   VARCHAR (50) NOT NULL,
     event_id        BIGINT       NOT NULL,
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP    NOT NULL,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, producer_id),
-    PRIMARY KEY (eservice_id, producer_id)
+    UNIQUE (eservice_id, producer_id, descriptor_id),
+    PRIMARY KEY (eservice_id, producer_id, descriptor_id)
 );
 
 CREATE INDEX IF NOT EXISTS ESERVICE_INDEX_ID ON ESERVICE USING hash (eservice_id);
 CREATE INDEX IF NOT EXISTS ESERVICE_INDEX_PRODUCER_ID ON ESERVICE USING hash (producer_id);
+CREATE INDEX IF NOT EXISTS ESERVICE_INDEX_DESCRIPTOR_ID ON ESERVICE USING hash (descriptor_id);
 
 
 CREATE TABLE IF NOT EXISTS CONSUMER_ESERVICE (
     eservice_id     VARCHAR (50) NOT NULL,
     consumer_id     VARCHAR (50) NOT NULL,
+    agreement_id    VARCHAR (50) NOT NULL,
+    descriptor_id   VARCHAR (50) NOT NULL,
     event_id        BIGINT       NOT NULL,
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP    NOT NULL,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, consumer_id),
-    PRIMARY KEY (eservice_id, consumer_id)
+    UNIQUE (eservice_id, consumer_id, descriptor_id),
+    PRIMARY KEY (eservice_id, consumer_id, descriptor_id)
 );
 CREATE INDEX IF NOT EXISTS CONSUMER_ESERVICE_INDEX_ID ON CONSUMER_ESERVICE USING hash (eservice_id);
-CREATE INDEX IF NOT EXISTS ESERVICE_INDEX_CONSUMER_ID ON CONSUMER_ESERVICE USING hash (consumer_id);
+CREATE INDEX IF NOT EXISTS CONSUMER_ESERVICE_INDEX_CONSUMER_ID ON CONSUMER_ESERVICE USING hash (consumer_id);
+CREATE INDEX IF NOT EXISTS CONSUMER_ESERVICE_INDEX_DESCRIPTOR_ID ON CONSUMER_ESERVICE USING hash (descriptor_id);
 
 
 CREATE TABLE IF NOT EXISTS SIGNAL (
@@ -70,6 +75,7 @@ CREATE TABLE IF NOT EXISTS DEAD_EVENT (
     event_id            BIGINT NOT NULL,
     event_type          VARCHAR (50) NOT NULL,
     object_type         VARCHAR (50) NOT NULL,
+    descriptor_id       VARCHAR (50) NOT NULL,
     eservice_id         VARCHAR (50),
     agreement_id        VARCHAR (50)
 );
