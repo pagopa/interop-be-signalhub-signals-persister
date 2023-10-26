@@ -25,7 +25,7 @@ public class LocalStackTestConfig {
 
     static LocalStackContainer localStack =
             new LocalStackContainer(DockerImageName.parse("localstack/localstack:1.0.4").asCompatibleSubstituteFor("localstack/localstack"))
-                    .withServices(DYNAMODB, SQS)
+                    .withServices(SQS)
                     .withClasspathResourceMapping("testcontainers/init.sh",
                             "/docker-entrypoint-initaws.d/make-storages.sh", BindMode.READ_ONLY)
                     .withClasspathResourceMapping("testcontainers/credentials",
@@ -37,7 +37,7 @@ public class LocalStackTestConfig {
 
     static {
         localStack.start();
-        System.setProperty("aws.sqs-endpoint", localStack.getEndpointOverride(DYNAMODB).toString());
+        System.setProperty("aws.sqs-endpoint", localStack.getEndpointOverride(SQS).toString());
         try {
             System.setProperty("aws.sharedCredentialsFile", new ClassPathResource("testcontainers/credentials").getFile().getAbsolutePath());
         } catch (IOException e) {
