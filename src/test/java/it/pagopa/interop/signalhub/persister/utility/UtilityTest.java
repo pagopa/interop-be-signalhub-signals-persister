@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class UtilityTest {
+    private final Utility utility = new Utility();
     @Test
     void jsonToObjectTest() {
         String jsonNode = """

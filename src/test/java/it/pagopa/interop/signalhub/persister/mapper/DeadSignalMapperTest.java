@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class DeadSignalMapperTest {
-    private final DeadSignalMapper deadSignalMapper = Mappers.getMapper(DeadSignalMapper.class);
+    private DeadSignalMapper deadSignalMapper;
     private Long signalId;
     private String objectId;
     private String correlationId;
@@ -109,10 +109,11 @@ class DeadSignalMapperTest {
         this.signalId = 0L;
         this.objectId = "OBJ1";
         this.correlationId = "0A";
-        this.objectType = "0E";
+        this.objectType = "ESERVICE";
         this.eserviceId = "OBJ1";
         this.indexSignal = 0L;
         this.errorReason = "404 Not Found";
         this.signalType = SignalType.CREATE.toString();
+        this.deadSignalMapper = Mappers.getMapper(DeadSignalMapper.class);
     }
 }

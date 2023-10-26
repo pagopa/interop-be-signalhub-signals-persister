@@ -168,7 +168,7 @@ class SqsInternalListenerTest {
         this.objectId = "OBJ1";
         this.correlationId = "0A";
         this.eserviceId = "OBJ1";
-        this.objectType = "0E";
+        this.objectType = "ESERVICE";
         this.indexSignal = 0L;
     }
 }

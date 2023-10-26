@@ -238,9 +238,10 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.10</version>
 				<configuration>
 					<excludes>
-						<exclude>it/pagopa/interop/signalhub/persister/config/*</exclude>
+						<exclude>it/pagopa/interop/signalhub/persister/config/**</exclude>
 						<exclude>**/SignalHubSignalsPersisterApplication.class</exclude>
 					</excludes>
 				</configuration>
