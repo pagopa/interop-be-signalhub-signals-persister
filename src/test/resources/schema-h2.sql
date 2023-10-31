@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS DEAD_EVENT (
     event_id            BIGINT NOT NULL,
     event_type          VARCHAR (50) NOT NULL,
     object_type         VARCHAR (50) NOT NULL,
-    descriptor_id       VARCHAR (50) NOT NULL,
+    descriptor_id       VARCHAR (50),
     eservice_id         VARCHAR (50),
     agreement_id        VARCHAR (50)
 );
