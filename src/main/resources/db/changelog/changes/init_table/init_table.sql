@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS ESERVICE (
     descriptor_id   VARCHAR (50) NOT NULL,
     event_id        BIGINT       ,
     state           VARCHAR (50) NOT NULL,
-    tmst_insert     TIMESTAMP    NOT NULL,
+    tmst_insert     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tmst_last_edit  TIMESTAMP,
     UNIQUE (eservice_id, producer_id, descriptor_id),
     PRIMARY KEY (eservice_id, producer_id, descriptor_id)
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS CONSUMER_ESERVICE (
     descriptor_id   VARCHAR (50) NOT NULL,
     event_id        BIGINT       ,
     state           VARCHAR (50) NOT NULL,
-    tmst_insert     TIMESTAMP    NOT NULL,
+    tmst_insert     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tmst_last_edit  TIMESTAMP,
     UNIQUE (eservice_id, consumer_id, descriptor_id),
     PRIMARY KEY (eservice_id, consumer_id, descriptor_id)
