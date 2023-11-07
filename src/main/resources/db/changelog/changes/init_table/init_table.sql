@@ -62,8 +62,7 @@ CREATE TABLE IF NOT EXISTS TRACING_BATCH (
     batch_id         SERIAL PRIMARY KEY,
     state            VARCHAR (50) NOT NULL,
     last_event_id    BIGINT,
-    tmst_started     TIMESTAMP NOT NULL,
-    tmst_ended       TIMESTAMP
+    tmst_created     TIMESTAMP NOT NULL
 );
 
 
