@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS ESERVICE (
     state           VARCHAR (50) NOT NULL,
     tmst_insert     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tmst_last_edit  TIMESTAMP,
-    UNIQUE (eservice_id, producer_id),
-    PRIMARY KEY (eservice_id, producer_id)
+    UNIQUE (eservice_id, producer_id, descriptor_id),
+    PRIMARY KEY (eservice_id, producer_id, descriptor_id)
 );
 /*
 CREATE INDEX IF NOT EXISTS ESERVICE_INDEX_ID ON ESERVICE USING hash (eservice_id);
