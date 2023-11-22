@@ -19,5 +19,5 @@ public class SignalEvent {
 
     private String eserviceId;
 
-    private Long indexSignal;
+    private Long signalId;
 }
