@@ -10,9 +10,8 @@ import org.mapstruct.Mapping;
 public interface SignalMapper {
     String CORRELATION_ID_HEADER_KEY = "correlationId";
 
-    @Mapping(target = "indexSignal", source = "signal.signalId")
     SignalEvent signalToSignalEvent(Signal signal);
-    @Mapping(target = "signalId", source = "signalEvent.indexSignal")
+
     @Mapping(target = "correlationId", source = "correlationId")
     Signal signalEventToSignal(SignalEvent signalEvent, String correlationId);
 }

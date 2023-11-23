@@ -2,6 +2,7 @@ package it.pagopa.interop.signalhub.persister.config;
 
 import io.awspring.cloud.sqs.config.SqsBootstrapConfiguration;
 import io.awspring.cloud.sqs.config.SqsMessageListenerContainerFactory;
+import io.awspring.cloud.sqs.listener.acknowledgement.handler.AcknowledgementMode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,7 @@ public class AwsBeanBuilder {
         return SqsMessageListenerContainerFactory
                 .builder()
                 .configure(options -> options
+                        .acknowledgementMode(AcknowledgementMode.ON_SUCCESS)
                         .maxConcurrentMessages(10)
                         .maxMessagesPerPoll(10))
                 .sqsAsyncClient(sqsAsyncClient())
