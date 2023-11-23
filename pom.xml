@@ -241,7 +241,9 @@
 				<version>0.8.10</version>
 				<configuration>
 					<excludes>
-						<exclude>it/pagopa/interop/signalhub/persister/config/**</exclude>
+						<exclude>**/config/**</exclude>
+						<exclude>**/entity/**</exclude>
+						<exclude>**/queue/model/**</exclude>
 						<exclude>**/SignalHubSignalsPersisterApplication.class</exclude>
 					</excludes>
 				</configuration>
