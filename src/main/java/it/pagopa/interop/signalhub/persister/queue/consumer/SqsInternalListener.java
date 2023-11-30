@@ -12,8 +12,12 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import reactor.util.context.Context;
+
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+
+import static it.pagopa.interop.signalhub.persister.utils.Const.TRACE_ID_KEY;
 
 
 @Slf4j
@@ -26,12 +30,13 @@ public class SqsInternalListener {
 
     @SqsListener(value = "${aws.internal-queue-name}")
     public CompletableFuture<Void> pullFromAwsInternalQueue(@Payload String node, @Headers Map<String, Object> headers) {
-        log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers);
         String correlationId = (String) headers.get(SignalMapper.CORRELATION_ID_HEADER_KEY);
 
         return Mono.just(node)
+                .contextWrite(Context.of(TRACE_ID_KEY, correlationId))
+                .doOnNext(json -> log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers))
                 .map(json -> Utility.jsonToObject(node, SignalEvent.class))
-                .map((signalEvent) -> signalMapper.signalEventToSignal(signalEvent, correlationId))
+                .map(signalEvent -> signalMapper.signalEventToSignal(signalEvent, correlationId))
                 .flatMap(signalService::signalServiceFlow)
                 .then()
                 .toFuture();

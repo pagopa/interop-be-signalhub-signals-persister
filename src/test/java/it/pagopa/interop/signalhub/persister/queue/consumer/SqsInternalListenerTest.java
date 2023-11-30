@@ -37,7 +37,7 @@ class SqsInternalListenerTest {
     private String correlationId;
     private String eserviceId;
     private String objectType;
-    private Long indexSignal;
+    private Long signalId;
 
 
     @BeforeEach
@@ -160,7 +160,7 @@ class SqsInternalListenerTest {
         signalEvent.setObjectType(this.objectType);
         signalEvent.setEserviceId(this.eserviceId);
         signalEvent.setObjectId(this.objectId);
-        signalEvent.setIndexSignal(this.indexSignal);
+        signalEvent.setSignalId(this.signalId);
         return signalEvent;
     }
 
@@ -169,6 +169,6 @@ class SqsInternalListenerTest {
         this.correlationId = "0A";
         this.eserviceId = "OBJ1";
         this.objectType = "ESERVICE";
-        this.indexSignal = 0L;
+        this.signalId = 0L;
     }
 }

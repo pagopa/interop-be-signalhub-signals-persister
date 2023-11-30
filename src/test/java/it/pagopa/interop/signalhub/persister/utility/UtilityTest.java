@@ -31,7 +31,7 @@ class UtilityTest {
         assertEquals("OBJ1", signalEvent.getObjectId());
         assertEquals("T1", signalEvent.getObjectType());
         assertEquals("E1", signalEvent.getEserviceId());
-        assertEquals("1", signalEvent.getIndexSignal().toString());
+        assertEquals("1", signalEvent.getSignalId().toString());
     }
 
     @Test

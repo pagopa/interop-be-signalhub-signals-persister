@@ -16,7 +16,6 @@ class SignalMapperTest {
     private String correlationId;
     private String eserviceId;
     private String objectType;
-    private Long indexSignal;
     private String signalType;
 
 
@@ -32,9 +31,9 @@ class SignalMapperTest {
         assertNotNull(signalEvent);
         assertEquals(signalEvent.getObjectId(), this.objectId);
         assertEquals(signalEvent.getEserviceId(), this.eserviceId);
-        assertEquals(signalEvent.getSignalType(), SignalType.CREATE);
+        assertEquals(SignalType.CREATE, signalEvent.getSignalType());
         assertEquals(signalEvent.getObjectType(), this.objectType);
-        assertEquals(signalEvent.getIndexSignal(), this.indexSignal);
+        assertEquals(signalEvent.getSignalId(), this.signalId);
     }
 
     @Test
@@ -57,7 +56,7 @@ class SignalMapperTest {
         SignalEvent signalEvent = getSignalEvent();
         Signal signal = signalMapper.signalEventToSignal(signalEvent, this.correlationId);
         assertNotNull(signal);
-        assertEquals(signal.getSignalId(), this.indexSignal);
+        assertEquals(signal.getSignalId(), this.signalId);
         assertEquals(signal.getObjectId(), this.objectId);
         assertEquals(signal.getEserviceId(), this.eserviceId);
         assertEquals(signal.getCorrelationId(), this.correlationId);
@@ -76,7 +75,7 @@ class SignalMapperTest {
         SignalEvent signalEvent = getSignalEvent();
         signal = signalMapper.signalEventToSignal(signalEvent, null);
         assertNotNull(signal);
-        assertEquals(signal.getSignalId(), this.indexSignal);
+        assertEquals(signal.getSignalId(), this.signalId);
         assertEquals(signal.getObjectId(), this.objectId);
         assertEquals(signal.getEserviceId(), this.eserviceId);
         assertEquals(signal.getObjectType(), this.objectType);
@@ -108,7 +107,7 @@ class SignalMapperTest {
         signalEvent.setObjectType(this.objectType);
         signalEvent.setEserviceId(this.eserviceId);
         signalEvent.setObjectId(this.objectId);
-        signalEvent.setIndexSignal(this.indexSignal);
+        signalEvent.setSignalId(this.signalId);
         return signalEvent;
     }
 
@@ -118,7 +117,6 @@ class SignalMapperTest {
         this.correlationId = "0A";
         this.objectType = "ESERVICE";
         this.eserviceId = "OBJ1";
-        this.indexSignal = 0L;
         this.signalType = SignalType.CREATE.toString();
         this.signalMapper = Mappers.getMapper(SignalMapper.class);
     }

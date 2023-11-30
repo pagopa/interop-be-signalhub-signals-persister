@@ -36,7 +36,7 @@ public class AwsBeanBuilder {
         return SqsMessageListenerContainerFactory
                 .builder()
                 .configure(options -> options
-                        .acknowledgementMode(AcknowledgementMode.ON_SUCCESS)
+                        //.acknowledgementMode(AcknowledgementMode.ON_SUCCESS)
                         .maxConcurrentMessages(10)
                         .maxMessagesPerPoll(10))
                 .sqsAsyncClient(sqsAsyncClient())
