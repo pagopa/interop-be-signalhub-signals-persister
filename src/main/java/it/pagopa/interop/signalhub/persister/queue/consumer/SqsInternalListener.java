@@ -37,7 +37,9 @@ public class SqsInternalListener {
                 .doOnNext(json -> log.info("payloadBody: {}, headers: {}, PullFromInternalQueue received input", node, headers))
                 .map(json -> Utility.jsonToObject(node, SignalEvent.class))
                 .map(signalEvent -> signalMapper.signalEventToSignal(signalEvent, correlationId))
-                .flatMap(signalService::signalServiceFlow)
+                .flatMap(signalEvent -> signalService.signalServiceFlow(signalEvent)
+                        .contextWrite(Context.of(TRACE_ID_KEY, correlationId))
+                )
                 .then()
                 .toFuture();
     }
